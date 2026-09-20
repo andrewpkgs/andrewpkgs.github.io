@@ -4,7 +4,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Hello</title>
+  <title>Para mi princesa Andy</title>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=Quicksand:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+
   <style>
     :root {
       --bg: #000000;
@@ -26,7 +31,29 @@
     }
 
     body {
-      font-family: Georgia, 'Times New Roman', serif;
+      font-family: 'Quicksand', serif;
+    }
+
+    .page-title {
+      font-family: 'Caveat', cursive;
+      text-align: center;
+      color: #e8e8e8;
+      font-size: 1.6rem;
+      font-weight: normal;
+      letter-spacing: 0.01em;
+      margin: 0;
+      padding-top: 56px;
+    }
+
+    .goodbye-text {
+      font-family: 'Caveat', cursive;
+      text-align: center;
+      color: #e8e8e8;
+      font-size: 1.6rem;
+      font-weight: normal;
+      letter-spacing: 0.01em;
+      margin: 0;
+      padding-bottom: 56px;
     }
 
     .gallery {
@@ -69,12 +96,22 @@
 
     /* FRONT face: holds both the spoiler cover and the photo, stacked */
     .card-front {
-      position: relative;
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
     }
 
     .card-front img {
       width: 100%;
       height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .card-front video {
+      width: 100%;
+      height: 100;
       object-fit: cover;
       display: block;
     }
@@ -132,17 +169,18 @@
 </head>
 
 <body>
-
+  <h1 class="page-title">Nuestros momentos juntos y mis fotitos favoritas de ti 💕</h1>
   <div class="gallery">
 
     <div class="card" id="card1">
       <div class="card-inner">
         <div class="card-face card-front">
           <img src="fotos/first.jpg" alt="">
-          <div class="spoiler-cover"><span>SPOILER</span></div>
+          <div class="spoiler-cover"><span>💖</span></div>
         </div>
         <div class="card-face card-back">
-          <p>Put your first message here.</p>
+          <p>Una de nuestras primeras fotos juntitos cuando apenas volviamos a salir, estaba muy nervioso jejejej. Mira
+            donde tengo la mano puesta y ni eramos novios jijijijiji.</p>
         </div>
       </div>
     </div>
@@ -151,25 +189,97 @@
       <div class="card-inner">
         <div class="card-face card-front">
           <img src="fotos/second.jpg" alt="">
-          <div class="spoiler-cover"><span>SPOILER</span></div>
+          <div class="spoiler-cover"><span>❤️</span></div>
         </div>
         <div class="card-face card-back">
-          <p>Put your second message here.</p>
+          <p>Esta foto me parece super tierna, es de mis favoritas de los dos, igual es de cuando recien empezabamos a
+            salir. Me trae bonitos recuerdos porque me gustaba mucho que las cosas funcionaran entre nosotros.</p>
         </div>
       </div>
     </div>
 
+    <div class="card" id="card3">
+      <div class="card-inner">
+        <div class="card-face card-front">
+          <img src="fotos/third.jpg" alt="">
+          <div class="spoiler-cover"><span>❣️</span></div>
+        </div>
+        <div class="card-face card-back">
+          <p>Aqui sales hermosísima, tanta belleza hace que mi corazón se acelere! Me encantas, mi preciosa, hermosa,
+            y bella princesa.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" id="card4">
+      <div class="card-inner">
+        <div class="card-face card-front">
+          <img src="fotos/fourth.jpg" alt="">
+          <div class="spoiler-cover"><span>💕</span></div>
+        </div>
+        <div class="card-face card-back">
+          <p>Esta foto probablemente no te gusta, pero creo que es mi foto favorita de ti. Cada vez que la veo se me
+            sale un "Awwww" y pienso en
+            lo dulce que eres, esa sonrisita me derrite el alma 💕</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" id="card5">
+      <div class="card-inner">
+        <div class="card-face card-front">
+          <img src="fotos/fifth.jpg" alt="">
+          <div class="spoiler-cover"><span>💝</span></div>
+        </div>
+        <div class="card-face card-back">
+          <p>Me encanta dormirme contigo, me traes una paz que nada ni nadie más en este mundo me da. Perdón por siempre
+            querer
+            dormirme contigo, pero es que me relajo tanto cuando estamos juntitos en mi cama, porque me siento seguro,
+            y amado.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" id="card6">
+      <div class="card-inner">
+        <div class="card-face card-front">
+          <video src="fotos/sixth.mp4" playsinline muted></video>
+          <div class="spoiler-cover"><span>💘</span></div>
+        </div>
+        <div class="card-face card-back">
+          <p>Este siempre será mi video favorito de ti. Me enamora la forma en que sonries y te ries junto a tus
+            alumnos, me hace sentir
+            sumamente orgulloso de ti, por lo que has logrado a pesar de todo.</p>
+        </div>
+      </div>
+    </div>
   </div>
+
+  <h1 class="goodbye-text">Soy muy afortunado de tenerte, mi preciosa Andy, eres el rayito de luz que me da las
+    esperanzas
+    que
+    tanto necesito para seguir adelante, te amo.</h1>
 
   <script>
     document.querySelectorAll('.card').forEach(function (card) {
+      var video = card.querySelector('video');
+
       card.addEventListener('click', function () {
         if (!card.classList.contains('revealed')) {
-          // first click: reveal the photo
           card.classList.add('revealed');
+          if (video) {
+            video.play();
+          }
         } else {
-          // subsequent clicks: flip between photo and message
           card.classList.toggle('flipped');
+          if (video) {
+            if (card.classList.contains('flipped')) {
+              video.pause();
+            } else {
+              video.play();
+            }
+          }
         }
       });
     });
