@@ -8,8 +8,9 @@
   <style>
     :root {
       --bg: #000000;
-      --card-w: 300px;
-      --card-h: 380px;
+      --card-w: 280px;
+      --card-h: 360px;
+      --spoiler-grey: #3a3a3a;
     }
 
     * {
@@ -25,23 +26,23 @@
     }
 
     body {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding-top: 64px;
-      padding-bottom: 64px;
       font-family: Georgia, 'Times New Roman', serif;
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(2, var(--card-w));
+      justify-content: space-between;
+      gap: 48px 0;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 64px 64px;
     }
 
     .card {
       width: var(--card-w);
       height: var(--card-h);
       perspective: 1200px;
-      margin-bottom: 48px;
-    }
-
-    .card:last-child {
-      margin-bottom: 0;
     }
 
     .card-inner {
@@ -66,11 +67,40 @@
       overflow: hidden;
     }
 
+    /* FRONT face: holds both the spoiler cover and the photo, stacked */
+    .card-front {
+      position: relative;
+    }
+
     .card-front img {
       width: 100%;
       height: 100%;
       object-fit: cover;
       display: block;
+    }
+
+    .spoiler-cover {
+      position: absolute;
+      inset: 0;
+      background: var(--spoiler-grey);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.5s ease;
+      z-index: 2;
+    }
+
+    .spoiler-cover span {
+      color: #cfcfcf;
+      font-family: Georgia, 'Times New Roman', serif;
+      font-style: italic;
+      font-size: 0.95rem;
+      letter-spacing: 0.04em;
+    }
+
+    .card.revealed .spoiler-cover {
+      opacity: 0;
+      pointer-events: none;
     }
 
     .card-back {
@@ -90,48 +120,57 @@
       line-height: 1.6;
       margin: 0;
     }
+
+    @media (max-width: 620px) {
+      .gallery {
+        grid-template-columns: var(--card-w);
+        justify-content: center;
+        padding: 48px 24px;
+      }
+    }
   </style>
 </head>
 
 <body>
 
-  <div class="card" id="card1">
-    <div class="card-inner">
-      <div class="card-face card-front">
-        <img src="fotos/first.jpg" alt="">
-      </div>
-      <div class="card-face card-back">
-        <p>Put your first message here.</p>
-      </div>
-    </div>
-  </div>
+  <div class="gallery">
 
-  <div class="card" id="card2">
-    <div class="card-inner">
-      <div class="card-face card-front">
-        <img src="fotos/second.jpg" alt="">
-      </div>
-      <div class="card-face card-back">
-        <p>Put your second message here.</p>
+    <div class="card" id="card1">
+      <div class="card-inner">
+        <div class="card-face card-front">
+          <img src="fotos/first.jpg" alt="">
+          <div class="spoiler-cover"><span>SPOILER</span></div>
+        </div>
+        <div class="card-face card-back">
+          <p>Put your first message here.</p>
+        </div>
       </div>
     </div>
-  </div>
 
-  <div class="card" id="card3">
-    <div class="card-inner">
-      <div class="card-face card-front">
-        <img src="fotos/second.jpg" alt="">
-      </div>
-      <div class="card-face card-back">
-        <p>Put your second message here.</p>
+    <div class="card" id="card2">
+      <div class="card-inner">
+        <div class="card-face card-front">
+          <img src="fotos/second.jpg" alt="">
+          <div class="spoiler-cover"><span>SPOILER</span></div>
+        </div>
+        <div class="card-face card-back">
+          <p>Put your second message here.</p>
+        </div>
       </div>
     </div>
+
   </div>
 
   <script>
     document.querySelectorAll('.card').forEach(function (card) {
       card.addEventListener('click', function () {
-        card.classList.toggle('flipped');
+        if (!card.classList.contains('revealed')) {
+          // first click: reveal the photo
+          card.classList.add('revealed');
+        } else {
+          // subsequent clicks: flip between photo and message
+          card.classList.toggle('flipped');
+        }
       });
     });
   </script>
